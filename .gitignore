@@ -11,3 +11,7 @@ __pycache__/
 
 # Mac system files
 .DS_Store
+
+# Virtual environments
+venv/
+pythonrefresh/venv/
