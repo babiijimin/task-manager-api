@@ -1,0 +1,166 @@
+{
+	"info": {
+		"_postman_id": "a56977b6-4f65-4aeb-80c0-0c2625305899",
+		"name": "Task Manager API",
+		"description": "My practice API requests while learning backend development",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "34292228"
+	},
+	"item": [
+		{
+			"name": "Tasks",
+			"item": [
+				{
+					"name": "https://jsonplaceholder.typicode.com/todos/1",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "https://jsonplaceholder.typicode.com/todos/1",
+							"protocol": "https",
+							"host": [
+								"jsonplaceholder",
+								"typicode",
+								"com"
+							],
+							"path": [
+								"todos",
+								"1"
+							]
+						},
+						"description": "All endpoints for my backend engineer learning project."
+					},
+					"response": []
+				},
+				{
+					"name": "List Todos",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"status is 200\", () => pm.response.to.have.status(200));",
+									"pm.test(\"returns JSON\", () => pm.response.to.be.json);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/todos",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"todos"
+							]
+						},
+						"description": "### GET /todos\n\nThis endpoint retrieves a list of todo items associated with users. It provides a way to access the current state of todos, including their completion status.\n\n#### Request Format\n\n- **Method**: GET\n    \n- **URL**: `{{baseUrl}}/todos`\n    \n- **Request Body**: No request body is required for this endpoint.\n    \n\n#### Response Structure\n\nUpon a successful request, the server responds with a status code of `200` and a JSON array containing the todo items. Each todo item in the response is structured as follows:\n\n- **userId** (integer): The ID of the user to whom the todo item belongs.\n    \n- **id** (integer): The unique identifier for the todo item.\n    \n- **title** (string): The title or description of the todo item.\n    \n- **completed** (boolean): Indicates whether the todo item has been completed.\n    \n\n##### Example Response\n\n``` json\n[\n    {\n        \"userId\": 0,\n        \"id\": 0,\n        \"title\": \"\",\n        \"completed\": true\n    }\n]\n\n ```\n\nThis endpoint is useful for applications that need to display or manage a list of todos for users."
+					},
+					"response": []
+				},
+				{
+					"name": "Get Todo by Id",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"status 200\", () => pm.response.to.have.status(200));",
+									"const data = pm.response.json();",
+									"pm.test(\"has id = 1\", () => pm.expect(data.id).to.eql(1));",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						},
+						{
+							"listen": "prerequest",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"auth": {
+							"type": "noauth"
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{baseUrl}}/todos/{{todoId}}",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"todos",
+								"{{todoId}}"
+							]
+						},
+						"description": "### Get Todo by ID\n\nThis endpoint retrieves a specific todo item based on the provided `todoId`. It is useful for fetching details of a todo item, including its title, completion status, and associated user.\n\n#### Request\n\n- **Method**: GET\n    \n- **URL**: `{{baseUrl}}/todos/{{todoId}}`\n    \n\n##### Path Parameters\n\n- `todoId` (required): The unique identifier of the todo item you wish to retrieve.\n    \n\n#### Response\n\nOn a successful request, the response will return a JSON object with the following structure:\n\n- **userId**: (integer) The ID of the user who owns the todo item.\n    \n- **id**: (integer) The unique identifier of the todo item.\n    \n- **title**: (string) The title or description of the todo item.\n    \n- **completed**: (boolean) Indicates whether the todo item has been completed.\n    \n\n##### Example Response\n\n``` json\n{\n  \"userId\": 0,\n  \"id\": 0,\n  \"title\": \"\",\n  \"completed\": true\n}\n\n ```\n\nThis response provides essential information about the specified todo item, allowing users to understand its status and details."
+					},
+					"response": []
+				},
+				{
+					"name": "Post create a todo",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.test(\"created (201)\", () => pm.response.to.have.status(201));",
+									"const json = pm.response.json();",
+									"pm.test(\"has a title\", () => pm.expect(json).to.have.property(\"title\"));"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n \"title\": \"learn fastapi\",\n \"completed\": false,\n \"userId\": 1\n}\n",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{baseUrl}}/todos",
+							"host": [
+								"{{baseUrl}}"
+							],
+							"path": [
+								"todos"
+							]
+						},
+						"description": "## Create Todo\n\nThis endpoint allows users to create a new todo item.\n\n### Request\n\n- **Method:** POST\n    \n- **URL:** `{{baseUrl}}/todos`\n    \n\n#### Request Body\n\nThe request body must be in JSON format and include the following parameters:\n\n- `title` (string): The title of the todo item. This is a required field.\n    \n- `completed` (boolean): Indicates whether the todo item is completed. This is a required field.\n    \n- `userId` (integer): The ID of the user who owns the todo item. This is a required field.\n    \n\n**Example Request Body:**\n\n``` json\n{\n  \"title\": \"learn fastapi\",\n  \"completed\": false,\n  \"userId\": 1\n}\n\n ```\n\n### Response\n\nUpon successful creation of the todo item, the server will respond with:\n\n- **Status Code:** 201 Created\n    \n- **Content-Type:** application/json\n    \n\n#### Response Body\n\nThe response will return a JSON object containing the following fields:\n\n- `title` (string): The title of the created todo item.\n    \n- `completed` (boolean): The completion status of the todo item.\n    \n- `userId` (integer): The ID of the user associated with the todo item.\n    \n- `id` (integer): The unique identifier for the newly created todo item.\n    \n\n**Example Response Body:**\n\n``` json\n{\n  \"title\": \"\",\n  \"completed\": true,\n  \"userId\": 0,\n  \"id\": 0\n}\n\n ```\n\n### Notes\n\n- Ensure that all required fields are included in the request body to avoid validation errors.\n    \n- The `id` field in the response will be generated by the server and will reflect the unique identifier of the newly created todo item."
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
