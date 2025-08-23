@@ -1,5 +1,3 @@
-Perfect! Here’s a fully copy-paste-ready **README.md** for your FastAPI Todo app, with all backticks and formatting corrected so it should render properly on GitHub:
-
 ````markdown
 # FastAPI Todo App
 
@@ -48,35 +46,52 @@ Visit Swagger UI: `http://127.0.0.1:8000/docs`
 }
 ```
 
+---
+
+
 ### Example Requests
 
 **Create Todo (POST)**
 
-```bash
-curl -X POST "http://127.0.0.1:8000/todos" -H "Content-Type: application/json" -d '{"title": "Learn FastAPI", "completed": false}'
+```
+POST /todos
+Content-Type: application/json
+
+{
+  "title": "Learn FastAPI",
+  "completed": false
+}
 ```
 
 **Get All Todos (GET)**
 
-```bash
-curl "http://127.0.0.1:8000/todos"
+```
+GET /todos
 ```
 
 **Get Single Todo (GET)**
 
-```bash
-curl "http://127.0.0.1:8000/todos/1"
+```
+GET /todos/1
 ```
 
 **Update Todo (PUT)**
 
-```bash
-curl -X PUT "http://127.0.0.1:8000/todos/1" -H "Content-Type: application/json" -d '{"title": "Updated Todo", "completed": true}'
+```
+PUT /todos/1
+Content-Type: application/json
+
+{
+  "title": "Updated Todo",
+  "completed": true
+}
 ```
 
 **Delete Todo (DELETE)**
 
-```bash
-curl -X DELETE "http://127.0.0.1:8000/todos/1"
 ```
+DELETE /todos/1
+```
+
+---
 
