@@ -71,7 +71,9 @@ def get_todo(todo_id: int): # FastAPI automatically converts the path parameter 
 # 2. validate it against the Todo model,
 # 3. passes it in as a todo object
 def create_todo(todo: Todo):    
-    new_id = len(todos) + 1 # creates a new unique id
+   # OLD: new_id = len(todos) + 1 -> creates a new unique id: this didnt consider case of entry deletion and add a new one(it would use same id)
+    #new logic:
+    new_id = max([t["id"] for t in todos], default=0) +1
     new_todo = {"id": new_id, **todo.model_dump()}    # converts the Pydantic model into a dictionary
     todos.append(new_todo)  # adds it to our "database"
     return new_todo # sends the newly created todo back in the response
