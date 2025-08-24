@@ -1,13 +1,16 @@
 
 
-## Postman Collection
+## Postman Setup
 
-This project includes a Postman collection for testing the API.
+This folder contains:
+- Postman collection for testing the API.
+- Environment variables (e.g., base URL)
 
+
+### How to Use Collection
 📂 You can find it inside the `postman/` folder:  
 - `postman/todos_api_collection.json`
 
-### How to Use
 1. Open **Postman**.
 2. Go to **File → Import**.
 3. Select the file: `postman/todos_api_collection.json`.
@@ -19,6 +22,11 @@ This project includes a Postman collection for testing the API.
 
 6. Run the saved requests against your local server:
    `http://127.0.0.1:8000`
+---
+
+### How to Use Environment
+1. Import `local-fastapi.postman_environment.json` into Postman.
+2. Switch environment to **Local - FastAPI** before sending requests
 
 ---
 
